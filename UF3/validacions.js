@@ -75,6 +75,7 @@ function validateAge() {
 }
 
   function validateGender() {
+
 }
 
 function validateMessage() {
@@ -86,6 +87,7 @@ function validateMessage() {
     displayError(messageInput, "El missatge ha de tenir entre 10 i 200 caràcters.");
   }
 }
+
 
 
 

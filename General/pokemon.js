@@ -2,13 +2,6 @@
 // Primero tenemos que poner el endpoint que vamos a usar para trabajar que en nuestro caso es pokemon
 
 //Pokemons
-async function pokemons() {
-    const pokemons = await
-fetch("https://pokeapi.co/api/v2/pokemon/")
-    const pokemon = await pokemons.json();
-console.log(pokemon);
-}
-
 async function getPokemon(id){
     const response = await fetch("https://pokeapi.co/api/v2/pokemon/"+id);
     const pokemon=await response.json();
@@ -26,10 +19,28 @@ async function getPokemon(id){
 
 async function ficarPokemon(){
     const pokemonValue = pokemonInput.value;
+    // Obtenir pokemon de la API
     const objecte = await getPokemon(pokemonValue);
-        pokemonName.textContent = objecte.name;
-        pokemonHeight.textContent=objecte.height;
-        pokemonWeight.textContent = objecte.weight;
+    // Comprobar resposta valida
+    if(objecte == null){
+        alert("Aquest pokémon no existeix.");
+    }
+    // Ficar valors del pokemon obtingut de la API
+    pokemonName.textContent = objecte.name;
+    pokemonHeight.textContent=objecte.height;
+    pokemonWeight.textContent = objecte.weight;
+    // Afegir habilitats
+    for(const habilitatPokemon of objecte.habilitats){
+        console.log(habilitatPokemon)
+        const ability = habilitatPokemon.ability
+        const habilitat = document.createElement("li");
+        habilitat.textContent =ability.name;
+        // afegir a la llista de habilitats
+        abilities.appendChild(habilitat);
+    }
+    // Ficar imatge
+    const sprites = objecte.sprites;
+    sprite.src = sprites.front_default;
 }
 
 // selectors
@@ -38,6 +49,9 @@ const pokemonInput = document.getElementById("pokemonId");
 const pokemonName = document.getElementById("name");
 const pokemonHeight = document.getElementById("height");
 const pokemonWeight = document.getElementById("weight");
+const abilities = document.getElementById("llista-abilities");
+const sprite = document.getElementById("sprite");
+
 
 // addEventListener botó click
 buscarButton.addEventListener("click", ficarPokemon)
