@@ -74,8 +74,15 @@ function validateAge() {
   }
 }
 
-  function validateGender() {
-
+function validateGender() {
+  removeExistingError(genderInput);
+  // Validació del gènere...
+  const gender = genderInput.value;
+  console.log(gender)
+  // Si no és vàlid...
+  if(gender != "male" && gender != "female" && gender != "other"){
+    displayError(genderInput, "El gènere no és vàlid");
+  }
 }
 
 function validateMessage() {
