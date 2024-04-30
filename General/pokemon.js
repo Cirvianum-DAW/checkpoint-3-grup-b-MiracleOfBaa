@@ -4,14 +4,16 @@ const BASE_URL = 'https://pokeapi.co/api/v2/';
 
 async function listPokemons(id) {
         return fetch(`${BASE_URL}pokemon/${id}/`)
-        .then((res => res.json())
+        .then((res)=> res.json())
         .then((pokemon) => ({
-            id: pokemon.id,
             name: pokemon.name,
             height: pokemon.height,
             weight: pokemon.weight,
             abilities: pokemon.abilities,
             sprites: pokemon.sprites,
         }))
-        .catch((error) => console.error(error))
+        .catch((error) => console.error(error));
+    }
+    export default {
+        listPokemons
     }
