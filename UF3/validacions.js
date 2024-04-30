@@ -2,10 +2,11 @@
 
 // Selecció dels inputs...
 const nameInput = document.querySelector('input[name="name"]');
-const surnameInput = document.querySelector('input[surname="surname"]');
-const emailInput = document.querySelector('input[email="email"]');
-const ageInput = document.querySelector('input[age="age"]');
-const messageInput = document.querySelector('input[message="message"]');
+const surnameInput = document.querySelector('input[name="surname"]');
+const emailInput = document.querySelector('input[name="email"]');
+const genderInput = document.querySelector('select[name="gender"]');
+const ageInput = document.querySelector('input[name="age"]');
+const messageInput = document.querySelector('textarea[name="message"]');
 
 // Si no saps com utilitzar aquestes funcions, pots fer ús de missatges per consol o situar
 // els errors allà on consideris lògic
@@ -51,13 +52,14 @@ function validateSurname() {
     }
 }
 
-function validateEmail(){
-  removeExistingError(emailInput)
+function validateEmail() {
+  removeExistingError(emailInput);
+  // Validació del correu...
   const email = emailInput.value;
-  const regex = /^[^@]+@[^@]+\.[^@]+$/;
-  // si no es valid
-  if (emailInput.value.match(regex)){
-    displayError (emailInput, "El email no es valid");
+  const valid = /^[^@]+@[^@]+\.[^@]+$/.test(email);
+  // Si no és vàlid...
+  if(valid == false){ //ho he cambiat per un valid = false perque non funcionaba
+    displayError(emailInput, "El correu no és vàlid");
   }
 }
 
@@ -72,14 +74,24 @@ function validateAge() {
   }
 }
 
-function validateMessage(){
-  removeExistingError(messageInput);
-  const message = messageInput.value;
+  function validateGender() {
 }
+
+function validateMessage() {
+  removeExistingError(messageInput);
+  // Validació de missatge...
+  const message = messageInput.value;
+  // Si no és vàlid...
+  if(message.length < 10 || message.length > 200){ //fem el mateix que feiem amb el nom
+    displayError(messageInput, "El missatge ha de tenir entre 10 i 200 caràcters.");
+  }
+}
+
+
 
 // addEventListeners...
 nameInput.addEventListener("input", validateName);
-surnameInput.addEventListener("change", validateSurname);
+surnameInput.addEventListener("input", validateSurname);
 emailInput.addEventListener("input", validateEmail);
-ageInput.addEventListener("input", validateAge);
+ageInput.addEventListener("submit", validateAge);
 messageInput.addEventListener("input", validateMessage);
